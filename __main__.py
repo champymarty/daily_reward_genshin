@@ -52,7 +52,7 @@ async def main():
         accounts = getAccount()
         for account in accounts:
             await collect(account[0], account[1], logger, account[2])
-        await asyncio.sleep(60 * 60) # Every hour
+        await asyncio.sleep(60 * 60 * 6) # Every 6 hours
         
         
 asyncio.run(main())
