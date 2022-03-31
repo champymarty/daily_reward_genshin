@@ -2,8 +2,6 @@ import asyncio
 import logging
 import genshin
 import os
-from dotenv import load_dotenv
-load_dotenv()
 
 accountsFile = os.path.join(os.path.dirname(os.path.realpath(__file__)), "accounts.txt")
 
