@@ -5,7 +5,6 @@ import os
 
 accountsFile = os.path.join(os.path.dirname(os.path.realpath(__file__)), "accounts.txt")
 
-
 def getAccount():
     infos = []
     with open(accountsFile, "r") as f:
@@ -33,16 +32,15 @@ def getLogger():
 
 async def collect(ltuid, ltoken, logger: logging.Logger, user="not specify"):
     cookies = {"ltuid": ltuid, "ltoken": ltoken}
-    client = genshin.GenshinClient(cookies)
+    client = genshin.Client(cookies, game=genshin.Game.GENSHIN)
 
     try:
         reward = await client.claim_daily_reward()
         logger.info("{} was {} collected for {}".format(reward.amount, reward.name, user))
     except genshin.AlreadyClaimed:
         logger.info("Already collected for {}".format(user))
-    except:
-        logger.warning("Error for {}".format(user))
-    await client.close()
+    except Exception as e:
+        logger.warning("Error for {}. {}".format(user, e))
     
 async def main():
     logger = getLogger()
